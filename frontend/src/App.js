@@ -87,7 +87,8 @@ function App() {
 
   return isLoaded && (
     <Switch>
-      <Route path="/">
+      
+      <Route exact path="/">
         <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave}/>
       </Route>
       <Route path="/login">
