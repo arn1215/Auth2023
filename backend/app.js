@@ -98,6 +98,23 @@ const wss = new WebSocket.Server({server})
 wss.on('connection', (ws) => {
   ws.on('message', (jsonData) => {
     console.log('message received', `${jsonData}`)  
+
+    const message = JSON.parse(jsonData)
+    const chatMessage = message.data;
+
+    const addChatMessage = {
+      type: 'add-chat-message',
+      data: chatMessage,
+    }
+
+    const jsonAddChatMessage = JSON.stringify(addChatMessage);
+    console.log('sending message', `${jsonAddChatMessage}`)
+
+    wss.clients.forEach(client => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(jsonAddChatMessage);
+      }
+    })
   })
 
   ws.on('close', (event) => {

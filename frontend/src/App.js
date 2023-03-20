@@ -24,7 +24,15 @@ function App() {
       created: new Date(),
     }
 
-    setMessages([newMessage, ...messages])
+    const jsonNewMessage = JSON.stringify({
+      type: 'send-chat-message',
+      data: newMessage,
+    })
+    console.log(`sending message ${jsonNewMessage}...`);
+
+    webSocket.current.send(jsonNewMessage)
+
+
   }
 
   const handleLeave = () => {
@@ -38,11 +46,9 @@ function App() {
 
     ws.onopen = (e) => {
       console.log('connection open', `${e}`)
+      setMessages([]);
     }
 
-    ws.onmessage = (e) => {
-      console.log(`${e}`)
-    }
 
     ws.onerror = (e) => {
       console.error(e)
@@ -50,10 +56,14 @@ function App() {
 
     ws.onclose = (e) => {
       console.log('connection closed', `${e}`)
+      webSocket.current = null;
+      setUsername('');
+      setMessages([]);
     }
 
     webSocket.current = ws;
 
+    //closes the server
     return function cleanup() {
       if (webSocket.current !== null) {
         webSocket.current.close();
@@ -61,7 +71,19 @@ function App() {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    if (webSocket.current !== null) {
+      webSocket.current.onmessage = (e) => {
+        console.log(`processing incoming message ${e.data}`)
 
+        const chatMessage = JSON.parse(e.data)
+        const message = chatMessage.data;
+        message.created = new Date(message.created)
+
+        setMessages([message, ...messages])
+      }
+    }
+  }, [messages])
 
   return isLoaded && (
     <Switch>
