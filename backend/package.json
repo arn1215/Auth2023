@@ -3,7 +3,7 @@
     "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
     "start": "per-env",
-    "start:development": "nodemon ./bin/www",
+    "start:development": "nodemon ./app",
     "start:production": "node ./bin/www",
     "build": "node psql-setup-script.js"
   },
@@ -22,7 +22,8 @@
     "per-env": "^1.0.2",
     "pg": "^8.9.0",
     "sequelize": "^6.29.0",
-    "sequelize-cli": "^6.6.0"
+    "sequelize-cli": "^6.6.0",
+    "ws": "^7.5.9"
   },
   "devDependencies": {
     "dotenv-cli": "^7.0.0",

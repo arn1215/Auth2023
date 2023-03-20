@@ -9,9 +9,12 @@ const routes = require('./routes');
 const { environment } = require('./config');
 const { ValidationError } = require('sequelize');
 const isProduction = environment === 'production';
+const {createServer} = require('http');
+const WebSocket = require('ws')
 
 //initialize app
 const app = express();
+
 
 
 //middleware for logging reqs/resp info
@@ -26,6 +29,7 @@ if (!isProduction) {
   // enable cors only in development
   app.use(cors());
 }
+
 
 // helmet helps set a variety of headers to better secure your app
 app.use(
@@ -84,3 +88,24 @@ app.use((err, _req, res, _next) => {
 
   });
 });
+
+
+const server = createServer(app)
+
+//with this line we can use the server we already have to also listen for ws connections
+const wss = new WebSocket.Server({server})
+
+wss.on('connection', (ws) => {
+  ws.on('message', (jsonData) => {
+    console.log('message received', `${jsonData}`)  
+  })
+
+  ws.on('close', (event) => {
+    console.log(`${event}`)
+  })
+})
+
+
+server.listen(8000, () => {
+  console.log('server is up')
+})
