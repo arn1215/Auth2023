@@ -1,7 +1,7 @@
 // frontend/src/App.js
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 import ChatRoom from "./components/ChatRoom";
 import LoginFormPage from "./components/LoginFormPage";
 import Main from "./components/Main";
@@ -15,13 +15,16 @@ function App() {
   const [username, setUsername] = useState('')
   const [messages, setMessages] = useState([])
   const webSocket = useRef(null)
+  const {roomId} = useParams()
 
-  const handleSendMessage = (message) => {
+  const handleSendMessage = (message, roomId) => {
     const newMessage = {
+      roomId,
       id: uuid(),
       username: `user${uuid()}`,
       message,
       created: new Date(),
+      
     }
 
     const jsonNewMessage = JSON.stringify({
@@ -32,6 +35,21 @@ function App() {
 
     webSocket.current.send(jsonNewMessage)
 
+
+  }
+
+  const handleJoin = (roomId) => {
+    const newMessage = {
+      roomId,  
+    }
+
+    const jsonNewMessage = JSON.stringify({
+      type: 'join-room',
+      data: newMessage,
+    })
+    console.log(`sending message ${jsonNewMessage}...`);
+
+    webSocket.current.send(jsonNewMessage)
 
   }
 
@@ -80,16 +98,15 @@ function App() {
         const message = chatMessage.data;
         message.created = new Date(message.created)
 
-        setMessages([message, ...messages])
+        setMessages([...messages, message])
       }
     }
   }, [messages])
 
   return isLoaded && (
     <Switch>
-      
-      <Route exact path="/">
-        <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave}/>
+      <Route path="/rooms/:roomId(\d+)">
+        <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin}/>
       </Route>
       <Route path="/login">
         <LoginFormPage />
