@@ -108,11 +108,15 @@ db.sequelize
       // Keep track of connected clients and which room they are in
       const clients = new Map(); // maps socket to room ID
 
-      wss.on("connection", (ws) => {
+      wss.on("connection", (ws) => { 
+        const ip = ws._socket.remoteAddress;
+        console.log(`Client connected from IP address ${ip}`);
+      
         // Listen for join room message from client
         ws.on("message", (jsonData) => {
           const message = JSON.parse(jsonData);
           const { type, data } = message;
+          
           if (type === "send-chat-message") {
 
             const { roomId } = data;
