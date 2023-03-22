@@ -10,7 +10,7 @@
 
 .input-container {
 
-    border: 1px solid red;
+
     min-width: 100%;
     min-height: 120px;
     display: flex;
@@ -20,16 +20,32 @@
 
 }
 
-.message-container {
-    background-color: bisque;
+.messages-container {
+    color: white;
+    background-color: rgb(55, 55, 55);
     min-height: 80vh;
     max-height: 80vh;
     overflow: scroll;
 }
 
+.message-container {
+    background-color: rgb(61, 61, 61);
+    padding: 10px;
+    margin: 10px;
+    min-height: 40px;
+
+    word-wrap: break-word;
+    width: fit-content;
+    max-width: 100%;
+    border-radius: 4px;
+}
+
 .chat-input  {
     max-width: 50%;
-    height: 60px;
+    min-height: 80px;
+    word-wrap: break-word;
+    overflow: scroll;
+    resize: none;
 }
 
 .input-button {

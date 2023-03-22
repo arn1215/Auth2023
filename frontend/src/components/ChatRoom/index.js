@@ -32,16 +32,18 @@ function ChatRoom({messages, handleSendMessage, handleLeave, handleJoin}) {
     return (  
         <div>
             <div className="page-container">
-                <div className="message-container">
+                <div className="messages-container">
                     <div>
                         {messages?.map(m => (
-                            <p key={m.id}>{m.username}:{m.message}</p>
+                            <div className="message-container">                     
+                                <p key={m.id}>{m.username}:{m.message}</p>
+                            </div>
                         ))}
-                        <div ref={messagesEndRef} />
+                    <div ref={messagesEndRef} />
                     </div>
                 </div>
                 <div className="input-container">
-                    <input 
+                    <textarea 
                     type='text'
                     value={message}
                     onChange={handleOnChange}
