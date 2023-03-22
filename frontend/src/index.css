@@ -1,4 +1,6 @@
 /* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 body {
     margin: auto;
+    font-family: 'Questrial', sans-serif;
 }

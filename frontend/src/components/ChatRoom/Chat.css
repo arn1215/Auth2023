@@ -28,6 +28,7 @@
     max-height: 80vh;
     overflow: scroll;
     margin-left: 22%;
+    margin-right: 20px;
 
 }
 
@@ -36,11 +37,10 @@
     padding: 10px;
     margin: 10px;
     min-height: 40px;
-
     word-wrap: break-word;
-    width: fit-content;
-    max-width: 100%;
+    max-width: fit-content;
     border-radius: 4px;
+    line-height: 3px;
 }
 
 .chat-input  {
@@ -65,5 +65,17 @@ textarea {
     background-color: rgba(124, 124, 124, 0.247);
     padding: 10px;
     height: fit-content;
+    color: white;
+    
+}
+
+.message-data {
+    font-size: 13px;
+    color: rgb(211, 211, 211);
+}
+
+.message-time {
+    font-size: 10px;
+    color: rgb(118, 118, 118);
     
 }

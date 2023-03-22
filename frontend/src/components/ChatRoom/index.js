@@ -1,24 +1,46 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import './Chat.css'
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
-function ChatRoom({messages, handleSendMessage, handleLeave, handleJoin}) {
+
+
+function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     const [message, setMessage] = useState('')
-    const {roomId} = useParams()
+    const [isEmpty, setIsEmpty] = useState(false)
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const { roomId } = useParams()
     const messagesEndRef = useRef(null)
 
     const handleOnChange = (e) => {
         setMessage(e.target.value);
+
+
     }
 
     const handleSendOnClick = () => {
-        handleSendMessage(message, roomId);
+
+        if (message.trim().length === 0) {
+            setIsEmpty(true)
+            console.log(isEmpty)
+        }
+        else {
+            setIsEmpty(false)
+            handleSendMessage(message, roomId);
+        }
 
         setMessage('');
     }
 
     const handleLeaveOnClick = () => {
         handleLeave();
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSendOnClick();
+        }
     }
 
     useEffect(() => {
@@ -29,29 +51,37 @@ function ChatRoom({messages, handleSendMessage, handleLeave, handleJoin}) {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
     }, [messages]);
 
-    return (  
+    return (
         <div>
             <div className="page-container">
                 <div className="messages-container">
                     <div>
                         {messages?.map(m => (
-                            <div className="message-container">                     
-                                <p key={m.id}>{m.username}:{m.message}</p>
+                            <div className="message-container">
+                                <div className="details">
+                                    <p className="message-data">username <p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
+                                </div>
+                                <p key={m.id}>{m.message}</p>
                             </div>
                         ))}
-                    <div ref={messagesEndRef} />
+                        <div ref={messagesEndRef} />
                     </div>
                 </div>
                 <div className="input-container">
-                    <textarea 
-                    type='text'
-                    value={message}
-                    onChange={handleOnChange}
-                    className="chat-input"
+                    <textarea
+                        data-tooltip-id="tooltip-anchor-hide"
+                        data-tooltip-content="Please enter a message first..."
+                        data-tooltip-variant="error"
+                        type='text'
+                        value={message}
+                        onChange={handleOnChange}
+                        className="chat-input"
+                        onKeyDown={handleKeyDown}
                     />
                     {/* <button className='input-button'type="button" onClick={handleLeaveOnClick}>Leave</button> */}
-                    <button className='input-button'type="button" onClick={handleSendOnClick}>Send</button>
+                    {/* <button className='input-button'type="button" onClick={handleSendOnClick}>Send</button> */}
                 </div>
+                <Tooltip isOpen={isEmpty} id="tooltip-anchor-hide" />
             </div>
         </div>
     );

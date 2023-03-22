@@ -8,6 +8,7 @@ import Main from "./components/Main";
 import SignupFormPage from "./components/SignUpFormPage";
 import * as sessionActions from "./store/session";
 import { v4 as uuid } from 'uuid';
+import 'react-tooltip/dist/react-tooltip.css'
 
 function App() {
   const dispatch = useDispatch();
