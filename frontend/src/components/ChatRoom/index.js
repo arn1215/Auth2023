@@ -49,8 +49,8 @@ function ChatRoom({messages, handleSendMessage, handleLeave, handleJoin}) {
                     onChange={handleOnChange}
                     className="chat-input"
                     />
+                    {/* <button className='input-button'type="button" onClick={handleLeaveOnClick}>Leave</button> */}
                     <button className='input-button'type="button" onClick={handleSendOnClick}>Send</button>
-                    <button className='input-button'type="button" onClick={handleLeaveOnClick}>Leave</button>
                 </div>
             </div>
         </div>
