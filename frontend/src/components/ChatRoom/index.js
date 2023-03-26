@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import './Chat.css'
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
+import { useSelector } from "react-redux";
 
 
 
@@ -12,7 +13,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const { roomId } = useParams()
     const messagesEndRef = useRef(null)
-
+    const user = useSelector(state => state.session.user)
     const handleOnChange = (e) => {
         setMessage(e.target.value);
 
@@ -20,7 +21,6 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     }
 
     const handleSendOnClick = () => {
-
         if (message.trim().length === 0) {
             setIsEmpty(true)
             console.log(isEmpty)
@@ -29,7 +29,6 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
             setIsEmpty(false)
             handleSendMessage(message, roomId);
         }
-
         setMessage('');
     }
 
@@ -59,7 +58,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
                         {messages?.map(m => (
                             <div className="message-container">
                                 <div className="details">
-                                    <p className="message-data">username <p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
+                                    <p className="message-data">{m.username} <p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
                                 </div>
                                 <p key={m.id}>{m.message}</p>
                             </div>

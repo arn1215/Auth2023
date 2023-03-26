@@ -1,6 +1,6 @@
 // frontend/src/App.js
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
 import ChatRoom from "./components/ChatRoom";
 import LoginFormPage from "./components/LoginFormPage";
@@ -9,23 +9,24 @@ import SignupFormPage from "./components/SignUpFormPage";
 import * as sessionActions from "./store/session";
 import { v4 as uuid } from 'uuid';
 import 'react-tooltip/dist/react-tooltip.css'
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [username, setUsername] = useState('')
+  const user = useSelector(state => state.session.user)
   const [messages, setMessages] = useState([])
   const webSocket = useRef(null)
-  const {roomId} = useParams()
+  const { roomId } = useParams()
 
   const handleSendMessage = (message, roomId) => {
     const newMessage = {
       roomId,
       id: uuid(),
-      username: `user${uuid()}`,
+      username: user.username,
       message,
       created: new Date(),
-      
+
     }
 
     const jsonNewMessage = JSON.stringify({
@@ -41,14 +42,14 @@ function App() {
 
   const handleJoin = (roomId) => {
     const newMessage = {
-      roomId,  
+      roomId,
     }
 
     const jsonNewMessage = JSON.stringify({
       type: 'join-room',
       data: newMessage,
     })
-    console.log(`sending message ${jsonNewMessage}...`);
+    console.log(`join room triggered for ${jsonNewMessage}...`);
 
     webSocket.current.send(jsonNewMessage)
 
@@ -60,7 +61,7 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  
+
     const ws = new WebSocket('ws://localhost:8000')
 
     ws.onopen = (e) => {
@@ -76,7 +77,7 @@ function App() {
     ws.onclose = (e) => {
       console.log('connection closed', `${e}`)
       webSocket.current = null;
-      setUsername('');
+
       setMessages([]);
     }
 
@@ -106,8 +107,11 @@ function App() {
 
   return isLoaded && (
     <Switch>
+      <Route exact path="/">
+        <LandingPage />
+      </Route>
       <Route path="/rooms/:roomId(\d+)">
-        <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin}/>
+        <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />
       </Route>
       <Route path="/login">
         <LoginFormPage />
