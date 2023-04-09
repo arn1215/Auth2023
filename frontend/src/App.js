@@ -9,6 +9,7 @@ import SignupFormPage from "./components/SignUpFormPage";
 import * as sessionActions from "./store/session";
 import { v4 as uuid } from 'uuid';
 import 'react-tooltip/dist/react-tooltip.css'
+import OauthLogin from "./components/OauthLogin";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function App() {
   const [username, setUsername] = useState('')
   const [messages, setMessages] = useState([])
   const webSocket = useRef(null)
-  const {roomId} = useParams()
+  const { roomId } = useParams()
 
   const handleSendMessage = (message, roomId) => {
     const newMessage = {
@@ -25,7 +26,7 @@ function App() {
       username: `user${uuid()}`,
       message,
       created: new Date(),
-      
+
     }
 
     const jsonNewMessage = JSON.stringify({
@@ -41,7 +42,7 @@ function App() {
 
   const handleJoin = (roomId) => {
     const newMessage = {
-      roomId,  
+      roomId,
     }
 
     const jsonNewMessage = JSON.stringify({
@@ -60,7 +61,7 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  
+
     const ws = new WebSocket('ws://localhost:8000')
 
     ws.onopen = (e) => {
@@ -106,8 +107,11 @@ function App() {
 
   return isLoaded && (
     <Switch>
+      <Route exact path="/">
+        <OauthLogin />
+      </Route>
       <Route path="/rooms/:roomId(\d+)">
-        <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin}/>
+        <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />
       </Route>
       <Route path="/login">
         <LoginFormPage />

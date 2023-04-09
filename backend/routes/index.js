@@ -2,7 +2,41 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
+const passport = require("passport")
 
+const CLIENT_URL = "http://localhost:3000"
+
+router.get(CLIENT_URL, (req, res) => {
+  if (req.user) {
+
+    res.status(200).json({
+      success: true,
+      message: "success",
+      user: req.user,
+      // cookies: req.cookies
+    })
+  }
+})
+
+router.get("/logout", (req, res) => {
+  req.logout()
+  res.redirect(CLIENT_URL)
+})
+
+router.get("/login/failed", (req, res) => {
+  res.status(401).json({
+    success: false,
+    message: "failure",
+  })
+})
+
+router.get("/google", passport.authenticate("google", { scope: ["profile"] }))
+
+router.get("/google/callback", passport.authenticate("google", {
+  successRedirect: CLIENT_URL,
+  failureRedirect: "/login/failed"
+  // todo make prod equiv
+}))
 router.use('/api', apiRouter);
 
 // Static routes
@@ -16,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
       path.resolve(__dirname, '../../frontend', 'build', 'index.html')
     );
   });
-  
+
   // Serve the static assets in the frontend's build folder
   router.use(express.static(path.resolve("../frontend/build")));
 
@@ -37,7 +71,7 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
-router.get('/hello/world', function(req, res) {
+router.get('/hello/world', function (req, res) {
   res.cookie('XSRF-TOKEN', req.csrfToken());
   res.send('Hello World!');
 });

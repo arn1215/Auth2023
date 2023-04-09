@@ -12,15 +12,25 @@ const isProduction = environment === 'production';
 const { createServer } = require('http');
 const WebSocket = require('ws')
 const db = require('../backend/db/models');
-
+const session = require('express-session');
+const passport = require('passport')
+const passportSetup = require("./passport")
 
 //initialize app
 const app = express();
 
-
-
 //middleware for logging reqs/resp info
 app.use(morgan('dev'));
+
+// Configure session middleware
+app.use(session({
+  secret: 'my-secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(cookieParser());
 app.use(express.json());
@@ -29,7 +39,12 @@ app.use(express.json());
 // Security Middleware
 if (!isProduction) {
   // enable cors only in development
-  app.use(cors());
+  app.use(cors({
+    origin: "http://localhost:3000",
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true,
+  }
+  ));
 }
 
 
