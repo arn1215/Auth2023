@@ -115,7 +115,6 @@ db.sequelize
         ws.on("message", (jsonData) => {
           const message = JSON.parse(jsonData);
           const { type, data } = message;
-          
           if (type === "send-chat-message") {
 
             const { roomId } = data;
