@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import './Chat.css'
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
+import { Howl } from 'howler';
 
 
 
@@ -49,6 +50,20 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
 
     useEffect(() => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+
+
+        //if the last message is from another user play a sound
+        console.log(messages[message.length - 1])
+        const sound = new Howl({
+            src: ['/sounds/pickupCoin.wav'],
+            volume: 0.5,
+        });
+        if (messages.length) {
+
+            sound.play();
+        }
+
+
     }, [messages]);
 
     return (

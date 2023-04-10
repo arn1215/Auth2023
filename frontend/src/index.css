@@ -5,6 +5,7 @@ body {
     margin: auto;
     font-family: 'Questrial', sans-serif;
     overflow-x: hidden;
+
 }
 
 ::-webkit-scrollbar {
@@ -16,13 +17,14 @@ body {
 
 .login-form {
     background: rgb(88, 88, 88);
-    width: 25%;
+    width: 20%;
     height: 60vh;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    justify-self: center;
 
 }
 

@@ -1,0 +1,2 @@
+When i  move onto  a production build i will need to change the client urls in the platform developer settings and 
+also in the codebase everywhere there is a redirect to the client url....there are also places where localhost8000 is hardcoded (?)

@@ -21,6 +21,10 @@ function OauthLogin() {
 
       <button className='login-button' onClick={gh} ><i className="fa-brands fa-github" style={{ color: 'white', fontSize: '28px' }}></i></button>
 
+      {/* <button className='login-button' onClick={gh} ><i className="fa-brands fa-facebook" style={{ color: 'white', fontSize: '28px' }}></i></button>
+
+      <button className='login-button' onClick={gh} ><i className="fa-brands fa-apple" style={{ color: 'white', fontSize: '28px' }}></i></button>
+    */}
     </div>
 
   )

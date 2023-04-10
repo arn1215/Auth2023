@@ -40,6 +40,7 @@ router.get('/github/callback',
     // Successful authentication, redirect home.
 
     res.redirect('/');
+    return res.send(res.toString())
   });
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }))
