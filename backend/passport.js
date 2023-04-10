@@ -11,12 +11,11 @@ passport.use(new GoogleStrategy({
   clientSecret: GOOGLE_CLIENT_SECRET,
   callbackURL: "/google/callback"
 },
-  function (accessToken, refreshToken, profile, cb, done) {
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-    done(null, profile)
+  function (accessToken, refreshToken, profile, cb) {
+    // Store user information in your database or perform other actions here
+    return cb(null, profile);
   }
+
 ));
 
 passport.use(new GitHubStrategy({

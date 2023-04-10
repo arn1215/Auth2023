@@ -8,15 +8,23 @@ const CLIENT_URL = "http://localhost:3000/rooms/1"
 
 router.get(CLIENT_URL, (req, res) => {
   if (req.user) {
+    const firstName = req.user.name.givenName; // Retrieve user's first name
+    const email = req.user.emails[0].value; // Retrieve user's email address
 
     res.status(200).json({
       success: true,
       message: "success",
-      user: req.user,
-      // cookies: req.cookies
-    })
+      firstName: firstName,
+      email: email
+    });
+  } else {
+    res.status(401).json({
+      success: false,
+      message: "failure"
+    });
   }
-})
+});
+
 
 router.get("/logout", (req, res) => {
   req.logout()

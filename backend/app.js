@@ -19,6 +19,8 @@ const passportSetup = require("./passport")
 //initialize app
 const app = express();
 
+
+
 //middleware for logging reqs/resp info
 app.use(morgan('dev'));
 
@@ -105,6 +107,7 @@ app.use((err, _req, res, _next) => {
 
   });
 });
+
 
 
 // Check the database connection before starting the app
