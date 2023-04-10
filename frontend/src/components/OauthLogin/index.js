@@ -1,6 +1,13 @@
-import { GoogleLogin } from 'react-google-login'
+
 
 const client_id = "557531000415-bskrc78cpu4c020p0al6sr7ob0rhdncu.apps.googleusercontent.com";
+
+const styles = {
+  border: 'none',
+  background: '#42A7E6',
+  width: '50%',
+  color: 'white'
+}
 
 
 function OauthLogin() {
@@ -11,9 +18,8 @@ function OauthLogin() {
 
   return (
     <div>
-      <button
-        onClick={google}
-      >asdfasdf</button>
+      <button className='login-button' onClick={google} style={styles}>Google      <i className="fa-brands fa-google" style={{ color: 'white' }}></i></button>
+
     </div>
   )
 }
