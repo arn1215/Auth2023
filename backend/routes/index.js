@@ -4,7 +4,7 @@ const router = express.Router();
 const apiRouter = require('./api');
 const passport = require("passport")
 
-const CLIENT_URL = "http://localhost:3000"
+const CLIENT_URL = "http://localhost:3000/rooms/1"
 
 router.get(CLIENT_URL, (req, res) => {
   if (req.user) {
@@ -29,6 +29,18 @@ router.get("/login/failed", (req, res) => {
     message: "failure",
   })
 })
+
+router.get('/github',
+  passport.authenticate('github', { scope: ['user:email'] }),
+);
+
+router.get('/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+
+    res.redirect('/');
+  });
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }))
 
