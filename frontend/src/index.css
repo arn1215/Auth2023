@@ -10,3 +10,40 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
+
+
+
+
+.login-form {
+    background: rgb(88, 88, 88);
+    width: 25%;
+    height: 60vh;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.login-button {
+    border: none;
+    background: #42A7E6;
+    width: 70%;
+    height: 40px;
+    color: white;
+    border-radius: 7px;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    transition-property: background;
+    margin: 10px;
+    align-items: center;
+}
+
+.login-button:hover {
+
+    background: #2f719b;
+    transition-duration: .5s;
+}
