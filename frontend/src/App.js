@@ -11,6 +11,7 @@ import { v4 as uuid } from 'uuid';
 import 'react-tooltip/dist/react-tooltip.css'
 import OauthLogin from "./components/OauthLogin";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -109,7 +110,7 @@ function App() {
   return isLoaded && (
     <Switch>
       <Route exact path="/">
-        <OauthLogin />
+        <LoginPage />
       </Route>
       <Route path="/rooms/:roomId(\d+)">
         <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />

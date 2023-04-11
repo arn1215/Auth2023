@@ -2,6 +2,7 @@ const passport = require('passport');
 
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github-oauth20').Strategy;
+
 //todo
 GOOGLE_CLIENT_ID = '456090067734-snrcfgjldm2mr5it5tm1ii6be5n6e9o1.apps.googleusercontent.com'
 GOOGLE_CLIENT_SECRET = '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'

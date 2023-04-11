@@ -38,7 +38,7 @@ router.get("/login/failed", (req, res) => {
   })
 })
 
-router.get('/github',
+router.get('/api/github',
   passport.authenticate('github', { scope: ['user:email'] }),
 );
 
@@ -51,7 +51,7 @@ router.get('/github/callback',
     return res.send(res.toString())
   });
 
-router.get("/google", passport.authenticate("google", { scope: ["profile"] }))
+router.get("/api/google", passport.authenticate("google", { scope: ["profile"] }))
 
 router.get("/google/callback", passport.authenticate("google", {
   successRedirect: CLIENT_URL,
