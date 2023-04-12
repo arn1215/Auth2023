@@ -4,7 +4,7 @@ const router = express.Router();
 const apiRouter = require('./api');
 const passport = require("passport")
 
-const CLIENT_URL = "http://localhost:3000/rooms/1"
+const CLIENT_URL = "http://localhost:3000"
 
 router.get(CLIENT_URL, (req, res) => {
   if (req.user) {
@@ -38,27 +38,60 @@ router.get("/login/failed", (req, res) => {
   })
 })
 
-router.get('/api/github',
-  passport.authenticate('github', { scope: ['user:email'] }),
-);
+router.get('/api/github', passport.authenticate('github', { scope: ['user:email'] }));
 
 router.get('/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function (req, res) {
-    // Successful authentication, redirect home.
+  // Custom callback for passport.authenticate
+  (req, res, next) => {
+    passport.authenticate('github', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.redirect('/login/failed');
+      }
+      // Log the user in and establish the session
+      console.log(user, "JKASHFKSJDHFKJSDHF")
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        // Set the XSRF-TOKEN cookie
+        res.cookie('gh-token', user.access_token);
+        return res.redirect(CLIENT_URL);
+      });
+    })(req, res, next);
+  }
+);
 
-    res.redirect('/');
-    return res.send(res.toString())
-  });
+router.get('/api/google', passport.authenticate('google', { scope: ['profile'] }));
 
-router.get("/api/google", passport.authenticate("google", { scope: ["profile"] }))
+router.get('/google/callback',
+  // Custom callback for passport.authenticate
+  (req, res, next) => {
+    passport.authenticate('google', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.redirect('/login/failed');
+      }
+      // Log the user in and establish the session
+      console.log(user)
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        // Set the XSRF-TOKEN cookie
+        res.cookie('google-user', user.displayName);
+        return res.redirect(CLIENT_URL);
+      });
+    })(req, res, next);
+  }
+);
 
-router.get("/google/callback", passport.authenticate("google", {
-  successRedirect: CLIENT_URL,
-  failureRedirect: "/login/failed"
-  // todo make prod equiv
-}))
 router.use('/api', apiRouter);
+
 
 // Static routes
 // Serve React build files in production

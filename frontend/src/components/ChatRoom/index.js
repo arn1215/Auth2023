@@ -4,15 +4,20 @@ import './Chat.css'
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { Howl } from 'howler';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux'
 
-
+import axios from 'axios';
 
 function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     const [message, setMessage] = useState('')
     const [isEmpty, setIsEmpty] = useState(false)
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [googleUserName, setGoogleUserName] = useState('');
     const { roomId } = useParams()
     const messagesEndRef = useRef(null)
+    const ghUserName = useSelector(state => state.session.user)
+
 
     const handleOnChange = (e) => {
         setMessage(e.target.value);
@@ -46,7 +51,19 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
 
     useEffect(() => {
         handleJoin(roomId)
+        const cookieValue = Cookies.get('google-user');
+        if (cookieValue) {
+            const decodedDisplayName = decodeURIComponent(cookieValue);
+            setGoogleUserName(decodedDisplayName);
+        }
+
     }, [roomId])
+
+
+    //github token parse
+    useEffect(() => {
+
+    }, [])
 
     useEffect(() => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
@@ -74,7 +91,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
                         {messages?.map(m => (
                             <div className="message-container">
                                 <div className="details">
-                                    <p className="message-data">username <p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
+                                    <p className="message-data"> {googleUserName || ghUserName}<p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
                                 </div>
                                 <p key={m.id}>{m.message}</p>
                             </div>

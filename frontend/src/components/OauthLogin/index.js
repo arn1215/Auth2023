@@ -1,6 +1,9 @@
-
+import { useDispatch } from 'react-redux'
+import { loginWithGoogle } from '../../store/session'
 
 function OauthLogin() {
+
+  const dispatch = useDispatch()
 
   const google = () => {
     window.open("http://localhost:8000/api/google", "_self")
