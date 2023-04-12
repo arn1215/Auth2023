@@ -6,6 +6,8 @@ import * as sessionActions from '../store/session'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import image from "../../src/components/LoginFormPage/uwu1.gif"
+import image2 from "../../src/components/LoginFormPage/uwu2.gif"
 function LoginPage() {
 
   const dispatch = useDispatch()
@@ -43,8 +45,12 @@ function LoginPage() {
 
 
   return (
+
     <div className='shadow login-page-container'>
+      <h1 className='splash-text-h1'>Connectify</h1>
+      {/* <p className='splash-text-p'>Imagine a space where you can be a member of a school club, a gaming group, or a worldwide art community. This is a place where you and your small group of friends can spend time together, and where it's easy to stay connected and communicate every day. It's a location that encourages you to hang out more often and fosters a sense of belonging.</p> */}
       <OauthLogin />
+
     </div>
   )
 }

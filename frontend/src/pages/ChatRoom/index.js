@@ -86,6 +86,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     return (
         <div>
             <div className="page-container">
+
                 <div className="messages-container">
                     <div>
                         {messages?.map(m => (

@@ -1,5 +1,6 @@
 /* TODO Add site wide styles */
 @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 body {
     margin: auto;
@@ -13,12 +14,63 @@ body {
     display: none;
 }
 
+
+
+
+
+.splash-text-h1 {
+    font-size: 4vw;
+    margin-left: -60%;
+    margin-top: -10%;
+    position: absolute;
+    animation-name: textSlide;
+    animation-duration: 4s;
+
+}
+
+.splash-uwu {
+    font-size: 4vw;
+    margin-right: -5vw;
+    margin-top: -30vw;
+    position: absolute;
+    width: 5vw;
+
+}
+
+.splash-uwu-2 {
+    font-size: 4vw;
+    margin-right: -18vw;
+    margin-top: 19%;
+    position: absolute;
+    width: 5vw;
+
+}
+
+@keyframes textSlide {
+    from {
+        margin-left: -63%;
+    }
+
+    to {
+        margin-left: -60%
+    }
+}
+
+/* .splash-text-p {
+    font-size: 1.2rem;
+    width: 300px;
+    margin-left: -70%;
+    margin-top: 10%;
+    position: absolute;
+} */
+
 .login-page-container {
     background-color: rgb(255, 255, 255);
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
     background-image: url("../public/vecteezy_abstract-blue-background-simple-design-for-your-website_6852804.jpg")
 }
 
@@ -34,7 +86,7 @@ body {
 }
 
 .login-form {
-    background: rgb(88, 88, 88);
+    background: rgba(245, 245, 245, 0.158);
     width: 20%;
     height: 60vh;
     border-radius: 12px;
@@ -48,6 +100,10 @@ body {
     animation-name: slideAnimation;
     animation-duration: 1s;
 
+}
+
+.login-text {
+    color: white;
 }
 
 
