@@ -20,6 +20,15 @@ const removeUser = () => {
   };
 };
 
+export const logout = () => async (dispatch) => {
+
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+
+  });
+  dispatch(removeUser())
+}
+
 export const login = (user) => async (dispatch) => {
 
   // const response = await csrfFetch('/api/session', {

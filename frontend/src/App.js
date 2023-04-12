@@ -1,8 +1,8 @@
 // frontend/src/App.js
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom";
-import ChatRoom from "./components/ChatRoom";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Switch, useParams, useHistory } from "react-router-dom";
+import ChatRoom from "./pages/ChatRoom";
 import LoginFormPage from "./components/LoginFormPage";
 import Main from "./components/Main";
 import SignupFormPage from "./components/SignUpFormPage";
@@ -12,6 +12,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import OauthLogin from "./components/OauthLogin";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import LoginPage from "./pages/LoginPage";
+import LogoutButton from "./components/LogoutButton";
 
 
 
@@ -22,12 +23,14 @@ function App() {
   const [messages, setMessages] = useState([])
   const webSocket = useRef(null)
   const { roomId } = useParams()
+  const history = useHistory()
+  const user = useSelector(state => state.session.user)
 
   const handleSendMessage = (message, roomId) => {
     const newMessage = {
       roomId,
       id: uuid(),
-      username: `user${uuid()}`,
+      username: user,
       message,
       created: new Date(),
 
@@ -109,6 +112,13 @@ function App() {
     }
   }, [messages])
 
+  //redirect to login if no user in redux state
+  useEffect(() => {
+    if (!user) {
+      history.push("/")
+    }
+  }, [])
+
   return isLoaded && (
     <Switch>
       <Route exact path="/">
@@ -116,6 +126,7 @@ function App() {
       </Route>
       <Route path="/rooms/:roomId(\d+)">
         <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />
+        <LogoutButton />
       </Route>
       <Route path="/login">
         <LoginFormPage />
