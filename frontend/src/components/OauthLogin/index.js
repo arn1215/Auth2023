@@ -3,6 +3,7 @@ import { loginWithGoogle } from '../../store/session'
 import { Tooltip } from 'react-tooltip';
 import image from "../LoginFormPage/uwu1.gif"
 import image2 from "../LoginFormPage/uwu2.gif"
+import image3 from "../LoginFormPage/images.png"
 function OauthLogin() {
 
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function OauthLogin() {
     <div className="login-form">
       <img className='splash-uwu' src={image} alt="uwu" />
       <img className='splash-uwu-2' src={image2} alt="uwu" />
+      {/* <img className='splash-uwu-3' src={image3} alt="uwu" /> */}
       <h2 className='login-text'>Log in with: </h2>
 
       <button
