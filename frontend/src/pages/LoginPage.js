@@ -21,22 +21,28 @@ function LoginPage() {
       history.push("/rooms/1")
     }
 
-    else if (googleCookie) {
-      dispatch(sessionActions.login({ user: googleCookie }))
-    }
+    dispatch(sessionActions.login(googleCookie))
+
 
     try {
-      const access_token = Cookies.get('gh-token')
-      console.log(access_token)
-      axios('https://api.github.com/user', {
-        headers: {
-          'Authorization': `Bearer ${access_token}`
-        }
-      })
-        .then(response => {
-          console.log('Response:', response.data);
-          dispatch(sessionActions.login(response.data.login))
+      const gh_access_token = Cookies.get('gh-token')
+
+
+      //GITHUB
+      if (gh_access_token) {
+        console.log(gh_access_token)
+        axios('https://api.github.com/user', {
+          headers: {
+            'Authorization': `Bearer ${gh_access_token}`
+          }
         })
+          .then(response => {
+            console.log('Response:', response.data);
+            dispatch(sessionActions.login(response.data.login))
+          })
+
+
+      }
     } catch (error) {
       console.error('Error:', error);
     }
