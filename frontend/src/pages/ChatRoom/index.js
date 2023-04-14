@@ -6,8 +6,19 @@ import 'react-tooltip/dist/react-tooltip.css';
 import { Howl } from 'howler';
 import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux'
-
 import axios from 'axios';
+
+
+
+
+// frontend/src/components/SignupFormPage/index.js
+
+import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import * as sessionActions from "../../store/session";
+
+
+
 
 function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     const [message, setMessage] = useState('')
@@ -17,6 +28,15 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     const { roomId } = useParams()
     const messagesEndRef = useRef(null)
     const ghUserName = useSelector(state => state.session.user)
+
+    const dispatch = useDispatch()
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errors, setErrors] = useState([]);
 
 
     const handleOnChange = (e) => {

@@ -30,6 +30,7 @@ function LoginPage() {
 
       //GITHUB
       if (gh_access_token) {
+
         console.log(gh_access_token)
         axios('https://api.github.com/user', {
           headers: {
@@ -39,6 +40,13 @@ function LoginPage() {
           .then(response => {
             console.log('Response:', response.data);
             dispatch(sessionActions.login(response.data.login))
+            dispatch(sessionActions.signup({
+              username: response.data.login,
+              firstName: response.data.login,
+              lastName: response.data.login,
+              email: 'email@email.com',
+              password: 'password'
+            }))
           })
 
 
