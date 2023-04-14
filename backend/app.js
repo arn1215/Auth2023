@@ -108,59 +108,57 @@ app.use((err, _req, res, _next) => {
   });
 });
 
+const server = createServer(app)
 
-
-// Check the database connection before starting the app
 db.sequelize
   .authenticate()
   .then(() => {
-    console.log('Database connection success! Sequelize is ready to use...');
+    console.log('Database connection success! Sequelize is ready to use...', process.env.DB_FILE);
 
     // Sync the models and start listening for connections
-    db.sequelize.sync().then(() => {
-      const server = createServer(app)
 
-      //with this line we can use the server we already have to also listen for ws connections
-      const wss = new WebSocket.Server({ server })
 
-      // Keep track of connected clients and which room they are in
-      const clients = new Map(); // maps socket to room ID
 
-      wss.on("connection", (ws) => {
-        // Listen for join room message from client
-        ws.on("message", (jsonData) => {
-          const message = JSON.parse(jsonData);
-          const { type, data } = message;
-          if (type === "send-chat-message") {
+    //with this line we can use the server we already have to also listen for ws connections
+    const wss = new WebSocket.Server({ server })
 
-            const { roomId } = data;
-            console.log(`Client joined room ${roomId}`);
+    // Keep track of connected clients and which room they are in
+    const clients = new Map(); // maps socket to room ID
 
-            clients.set(ws, roomId);
-            // Broadcast message to all clients in the same room as sender
-            const senderRoomId = clients.get(ws);
+    wss.on("connection", (ws) => {
+      // Listen for join room message from client
+      ws.on("message", (jsonData) => {
+        const message = JSON.parse(jsonData);
+        const { type, data } = message;
+        if (type === "send-chat-message") {
 
-            if (!senderRoomId) {
-              console.log("Error: client not in a room");
-              return;
-            }
+          const { roomId } = data;
+          console.log(`Client joined room ${roomId}`);
 
-            wss.clients.forEach((client) => {
-              if (client.readyState === WebSocket.OPEN && clients.get(client) === senderRoomId) {
-                client.send(jsonData);
-              }
-            });
+          clients.set(ws, roomId);
+          // Broadcast message to all clients in the same room as sender
+          const senderRoomId = clients.get(ws);
+
+          if (!senderRoomId) {
+            console.log("Error: client not in a room");
+            return;
           }
-        });
 
-        // Remove client from room when connection closes
-        ws.on("close", () => {
-          clients.delete(ws);
-        });
+          wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN && clients.get(client) === senderRoomId) {
+              client.send(jsonData);
+            }
+          });
+        }
       });
 
-      server.listen(8000, () => console.log(`Listening on 8000 ${8000}...`));
-    })
+      // Remove client from room when connection closes
+      ws.on("close", () => {
+        clients.delete(ws);
+      });
+    });
+
+    server.listen(8000, () => console.log(`Listening on 8000 ${8000}...`));
   })
   .catch((err) => {
     console.log('Database connection failure.');
