@@ -31,14 +31,14 @@ export const logout = () => async (dispatch) => {
 
 export const login = (user) => async (dispatch) => {
 
-  const response = await csrfFetch('/api/session', {
-    method: 'POST',
-    body: JSON.stringify({
-      user
-    }),
-  });
-  const data = await response.json();
-  dispatch(setUser(data));
+  // const response = await csrfFetch('/api/session', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     user
+  //   }),
+  // });
+  // const data = await response.json();
+  dispatch(setUser(user));
   // return response;
 };
 
@@ -134,7 +134,7 @@ const sessionReducer = (state = initialState, action) => {
     case SET_GOOGLE_USER:
     case SET_GITHUB_USER:
       newState = Object.assign({}, state);
-      newState = action.payload;
+      newState.user = action.payload;
       return newState;
     case REMOVE_USER:
       newState = Object.assign({}, state);

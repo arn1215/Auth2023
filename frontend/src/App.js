@@ -30,7 +30,7 @@ function App() {
     const newMessage = {
       roomId,
       id: uuid(),
-      username: user,
+      username: user.username,
       message,
       created: new Date(),
 
