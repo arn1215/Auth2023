@@ -83,7 +83,7 @@ router.get('/google/callback',
           return next(err);
         }
         // Set the XSRF-TOKEN cookie
-        res.cookie('google-user', user.displayName);
+        res.cookie('google-user', JSON.stringify(user));
         return res.redirect(CLIENT_URL);
       });
     })(req, res, next);

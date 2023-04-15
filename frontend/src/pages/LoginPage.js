@@ -6,50 +6,52 @@ import * as sessionActions from '../store/session'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
-import image from "../../src/components/LoginFormPage/uwu1.gif"
-import image2 from "../../src/components/LoginFormPage/uwu2.gif"
+import { useState } from 'react'
+
+
 function LoginPage() {
 
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.session.user)
-  useEffect(() => {
+  const [oauthPlatform, setOauthPlatform] = useState("")
 
-    const userCookie = Cookies.get('gh-token')
+
+
+
+  useEffect(() => {
+    let user_obj;
+    const githubCookie = Cookies.get('gh-token')
     const googleCookie = Cookies.get('google-user')
-    if (userCookie || googleCookie) {
+
+    //if there are session cookies redirect user if they try to access login page -- until they log out
+    if (githubCookie || googleCookie) {
       history.push("/rooms/1")
     }
 
-    dispatch(sessionActions.login(googleCookie))
+    // dispatch(sessionActions.login(googleCookie))
 
 
     try {
-      const gh_access_token = Cookies.get('gh-token')
-
-
       //GITHUB
-      if (gh_access_token) {
-
-        console.log(gh_access_token)
+      if (githubCookie) {
+        console.log(githubCookie)
         axios('https://api.github.com/user', {
           headers: {
-            'Authorization': `Bearer ${gh_access_token}`
+            'Authorization': `Bearer ${githubCookie}`
           }
         })
           .then(response => {
             console.log('Response:', response.data);
-            dispatch(sessionActions.login(response.data.login))
-            dispatch(sessionActions.signup({
-              username: response.data.login,
-              firstName: response.data.login,
-              lastName: response.data.login,
-              email: 'email@email.com',
-              password: 'password'
-            }))
+            user_obj = { username: response.data.login, firstName: "none", lastName: "none", email: "email@email.com", passsword: 'password' }
+            console.log(user_obj)
+            dispatch(sessionActions.signup(user_obj))
           })
-
-
+      } else if (googleCookie) {
+        console.log(JSON.parse(googleCookie))
+        const googleUser = JSON.parse(googleCookie)
+        user_obj = { username: googleUser.displayName, firstName: googleUser.name.givenName, lastName: googleUser.name.familyName, email: "email@email.com", pasword: 'password' }
+        dispatch(sessionActions.signup(user_obj))
       }
     } catch (error) {
       console.error('Error:', error);
