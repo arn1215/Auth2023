@@ -112,7 +112,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
                         {messages?.map(m => (
                             <div className="message-container">
                                 <div className="details">
-                                    <p className="message-data"> {m.username}<p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
+                                    <p className="message-data"> {m.username.username}<p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
                                 </div>
                                 <p key={m.id}>{m.message}</p>
                             </div>

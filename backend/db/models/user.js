@@ -19,19 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
-    static async login({ credential, password }) {
+    static async login({ login }) {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
-            username: credential,
-            email: credential
+            username: login,
+            // email: credential
           }
         }
       });
-      if (user && user.validatePassword(password)) {
-        return await User.scope('currentUser').findByPk(user.id);
-      }
+      // if (user && user.validatePassword(password)) {
+      return await User.scope('currentUser').findByPk(user.id);
+      // }
     }
 
     static async signup({ username, email, firstName, lastName, password }) {

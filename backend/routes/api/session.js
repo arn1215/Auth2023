@@ -9,23 +9,25 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateLogin = [
-  check('credential')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
-  check('password')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
-  handleValidationErrors
+  // check('credential')
+  //   .exists({ checkFalsy: true })
+  //   .notEmpty()
+  //   .withMessage('Please provide a valid email or username.'),
+  // check('password')
+  //   .exists({ checkFalsy: true })
+  //   .withMessage('Please provide a password.'),
+  // handleValidationErrors
+
+  //todo
 ];
 
 //log in 
 router.post(
   '/', validateLogin,
   async (req, res, next) => {
-    const { credential, password } = req.body;
-
-    const user = await User.login({ credential, password });
+    const user_req = req.body;
+    console.log("\n\n THIS IS THE USER_REQ", user_req.user.login)
+    const user = await User.login(user_req.user);
 
     if (!user) {
       const err = new Error('Login failed');
