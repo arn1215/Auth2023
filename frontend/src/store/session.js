@@ -30,13 +30,13 @@ export const logout = () => async (dispatch) => {
 }
 
 export const login = (user) => async (dispatch) => {
-
-  // const response = await csrfFetch('/api/session', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     user
-  //   }),
-  // });
+  console.log("thunk user\n", user)
+  const response = await csrfFetch('/api/session', {
+    method: 'POST',
+    body: JSON.stringify({
+      user
+    }),
+  });
   // const data = await response.json();
   dispatch(setUser(user));
   // return response;
