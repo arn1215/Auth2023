@@ -19,13 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
 
-    static async login({ credential, password }) {
+    static async login({ username, email, password='password' }) {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
-            username: credential,
-            email: credential
+            username: username,
           }
         }
       });
