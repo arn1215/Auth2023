@@ -52,7 +52,9 @@ export const restoreUser = () => async dispatch => {
 
 
 export const signup = (user) => async (dispatch) => {
-  const { username, firstName, lastName, email, password } = user;
+  //todo hardcoded password?
+  const { username, firstName, lastName, email, password = "password" } = user;
+
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify({
@@ -88,7 +90,7 @@ export const loginWithGoogle = () => async (dispatch) => {
   try {
     const response = await csrfFetch('/api/google', { mode: 'no-cors' });
     const data = await response.json();
-    dispatch(setGoogleUser(data.user));
+    dispatch(setGoogleUser(JSON.parse(data.user)));
     return response;
   } catch (error) {
     console.error('Error during Google authentication:', error);
