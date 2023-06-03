@@ -19,7 +19,6 @@ function LoginPage() {
 
 
   useEffect(() => {
-
     let user_obj;
     const githubCookie = Cookies.get('gh-token')
     const googleCookie = Cookies.get('google-user')
@@ -31,7 +30,7 @@ function LoginPage() {
       console.log(githubCookie)
       axios('https://api.github.com/user', {
         headers: {
-          'Authorization': `Bearer ${githubCookie}d`
+          'Authorization': `Bearer ${githubCookie}`
         }
       })
         .then(response => {
