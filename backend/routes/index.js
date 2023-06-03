@@ -77,7 +77,6 @@ router.get('/google/callback',
         return res.redirect('/login/failed');
       }
       // Log the user in and establish the session
-      console.log(user)
       req.logIn(user, (err) => {
         if (err) {
           return next(err);

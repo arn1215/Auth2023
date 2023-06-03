@@ -27,7 +27,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     const [googleUserName, setGoogleUserName] = useState('');
     const { roomId } = useParams()
     const messagesEndRef = useRef(null)
-    const ghUserName = useSelector(state => state.session.user)
+    const ghUserName = useSelector(state => state.session)
 
     const dispatch = useDispatch()
     const [email, setEmail] = useState("");
@@ -112,7 +112,7 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
                         {messages?.map(m => (
                             <div className="message-container">
                                 <div className="details">
-                                    <p className="message-data">{m.username}<p className="message-time">{m.created.toLocaleString().split(",")[1]}</p></p>
+                                    <p className="message-data">{m.username}<p className="message-time">{m.created.toLocaleString().split(",")[1]}{m.toString().username}</p></p>
                                 </div>
                                 <p key={m.id}>{m.message}</p>
                             </div>
