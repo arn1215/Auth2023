@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import * as sessionActions from '../store/session'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 import { useState } from 'react'
 
 
@@ -66,6 +66,13 @@ function LoginPage() {
     //if there are session cookies redirect user if they try to access login page -- until they log out
 
   }, [])
+
+  useEffect(() => {
+    if (user)
+    {
+      <Redirect to="/rooms/1" />
+    }
+   }, [])
 
 
   return (

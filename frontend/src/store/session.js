@@ -57,20 +57,17 @@ export const restoreUser = () => async dispatch => {
 
 export const signup = (user) => async (dispatch) => {
   //todo hardcoded password?
-  const { username, firstName, lastName, email, password = "password" } = user;
+  const { username, password = "password" } = user;
 
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify({
       username,
-      firstName,
-      lastName,
-      email,
       password,
     }),
   });
   const data = await response.json();
-  dispatch(setUser({ username: data.user.credential }));
+  dispatch(setUser({ username: data.user.username }));
   return response;
 };
 
