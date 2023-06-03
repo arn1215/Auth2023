@@ -4,6 +4,7 @@ import { Tooltip } from 'react-tooltip';
 import image from "../LoginFormPage/uwu1.gif"
 import image2 from "../LoginFormPage/uwu2.gif"
 import image3 from "../LoginFormPage/images.png"
+import LoginFormPage from '../LoginFormPage';
 function OauthLogin() {
 
   const dispatch = useDispatch()
@@ -21,22 +22,22 @@ function OauthLogin() {
       <img className='splash-uwu' src={image} alt="uwu" />
       <img className='splash-uwu-2' src={image2} alt="uwu" />
       {/* <img className='splash-uwu-3' src={image3} alt="uwu" /> */}
-      <h2 className='login-text'>Log in with: </h2>
-
-      <button
+      <h2 className='login-text'>Log in</h2>
+      <LoginFormPage />
+      {/* <button
         data-tooltip-id="google"
         data-tooltip-content="Google"
-        data-tooltip-variant="light" className='login-button' onClick={google} ><i className="fa-brands fa-google" style={{ color: 'white', fontSize: '28px' }}></i></button>
+        data-tooltip-variant="light" className='form-element' onClick={google} ><i className="fa-brands fa-google" style={{ color: 'white', fontSize: '28px' }}></i></button>
       <Tooltip id="google" />
       <button
         data-tooltip-id="GitHub"
         data-tooltip-content="GitHub"
-        data-tooltip-variant="light" className='login-button' onClick={gh} ><i className="fa-brands fa-github" style={{ color: 'white', fontSize: '28px' }}></i></button>
-      <Tooltip id="GitHub" />
+        data-tooltip-variant="light" className='form-element' onClick={gh} ><i className="fa-brands fa-github" style={{ color: 'white', fontSize: '28px' }}></i></button>
+      <Tooltip id="GitHub" /> todo */}
 
-      {/* <button className='login-button' onClick={gh} ><i className="fa-brands fa-facebook" style={{ color: 'white', fontSize: '28px' }}></i></button>
+      {/* <button className='form-element' onClick={gh} ><i className="fa-brands fa-facebook" style={{ color: 'white', fontSize: '28px' }}></i></button>
 
-      <button className='login-button' onClick={gh} ><i className="fa-brands fa-apple" style={{ color: 'white', fontSize: '28px' }}></i></button> */}
+      <button className='form-element' onClick={gh} ><i className="fa-brands fa-apple" style={{ color: 'white', fontSize: '28px' }}></i></button> */}
 
     </div>
 

@@ -103,6 +103,16 @@ body {
     }
 }
 
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+
 .login-form {
     background: rgba(245, 245, 245, 0.158);
     width: 20%;
@@ -130,23 +140,32 @@ body {
 
 }
 
-.login-button {
+.form-element {
     border: none;
-    background: #42A7E6;
     width: 70%;
     height: 40px;
-    color: white;
+    color: rgb(7, 7, 7);
     border-radius: 7px;
     display: flex;
-    justify-content: space-around;
-    cursor: pointer;
+    justify-content: center;
     transition-property: background;
-    margin: 10px;
+    margin: 15px;
     align-items: center;
+
 }
 
-.login-button:hover {
-
+button.form-element:hover {
     background: #2f719b;
     transition-duration: .5s;
+}
+
+button.form-element {
+    cursor: pointer;
+    background: #42A7E6;
+    color: azure;
+}
+
+input.form-element {
+    padding-left: 5px;
+    width: 68%;
 }
