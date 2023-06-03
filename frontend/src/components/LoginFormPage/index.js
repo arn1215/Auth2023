@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 
 import './LoginForm.css';
+import SignupFormPage from '../SignUpFormPage';
 
 
 function LoginFormPage() {
@@ -14,6 +15,7 @@ function LoginFormPage() {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const [signup, setSignup] = useState(false)
 
   if (sessionUser?.username) return (
     <Redirect to="/rooms/1" />
@@ -30,36 +32,41 @@ function LoginFormPage() {
   }
 
 
-
-  return (
-    <div className='form'>
-      <ul>
-        {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Username
-      </label>
-      <input
-        type="text"
-        value={credential}
-        onChange={(e) => setCredential(e.target.value)}
-        className='form-element'
-
-      />
-      <label>
-        Password
-      </label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className='form-element'
-
-
-      />
-      <button type="submit" className='form-element' onClick={handleSubmit}>Log In</button>
-    </div>
-  );
-}
+  if (signup) {
+    return (
+      <div className='form'>
+        <SignupFormPage />
+      </div>
+    );
+  } else {
+    return (
+      <div className='form'>
+        <ul>
+          {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
+        </ul>
+        <label>
+          Username
+        </label>
+        <input
+          type="text"
+          value={credential}
+          onChange={(e) => setCredential(e.target.value)}
+          className='form-element'
+        />
+        <label>
+          Password
+        </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='form-element'
+        />
+        <button type="submit" className='form-element' onClick={handleSubmit}>Log In</button>
+        <button className='form-element' style={{ border: 'none', background: 'none' }} onClick={() => setSignup(true)}>or sign up</button>
+      </div>
+    );
+  }
+};
 
 export default LoginFormPage;

@@ -6,9 +6,10 @@ function LogoutButton() {
 
   const dispatch = useDispatch()
   const history = useHistory()
-  const onClick = () => {
-    dispatch(logout())
-    window.location.reload()
+  const onClick = async () => {
+    await dispatch(logout())
+    history.push("/")
+
 
   }
 

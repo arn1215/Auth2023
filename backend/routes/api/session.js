@@ -49,8 +49,7 @@ router.post(
 router.delete(
   '/',
   (_req, res) => {
-    res.clearCookie('google-user');
-    res.clearCookie('gh-token');
+    res.clearCookie('token')
     return res.json({ message: 'success' });
   }
 );
