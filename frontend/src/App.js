@@ -123,7 +123,6 @@ function App() {
     <Switch>
       <Route exact path="/">
         <LoginPage />
-        <SignupFormPage />
       </Route>
       <Route path="/rooms/:roomId(\d+)">
         <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />

@@ -34,9 +34,9 @@ function LoginFormPage() {
 
   if (signup) {
     return (
-      <div className='form'>
-        <SignupFormPage />
-      </div>
+
+      <SignupFormPage />
+
     );
   } else {
     return (
