@@ -113,16 +113,17 @@ function App() {
   }, [messages])
 
   //redirect to login if no user in redux state
-  useEffect(() => {
-    if (!user) {
-      history.push("/")
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!user) {
+  //     history.push("/")
+  //   }
+  // }, [])
 
   return isLoaded && (
     <Switch>
       <Route exact path="/">
         <LoginPage />
+        <SignupFormPage />
       </Route>
       <Route path="/rooms/:roomId(\d+)">
         <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />

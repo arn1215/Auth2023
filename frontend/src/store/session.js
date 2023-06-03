@@ -30,6 +30,7 @@ export const logout = () => async (dispatch) => {
 }
 
 export const login = (user) => async (dispatch) => {
+  console.log(user, "the user")
   console.log("thunk user\n", user)
   const response = await csrfFetch('/api/session', {
     method: 'POST',

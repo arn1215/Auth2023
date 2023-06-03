@@ -21,13 +21,13 @@ const validateLogin = [
 
 //log in 
 router.post(
-  '/', 
+  '/',
   async (req, res, next) => {
     console.log("\n\n\n\n\n", 'sdfafafsdfa')
     console.log(req.body)
-    const {username, email, password} = req.body.user;
+    const { credential, password } = req.body.user;
 
-    const user = await User.login({ username, email, password });
+    const user = await User.login({ credential, password });
 
     if (!user) {
       const err = new Error('Login failed');

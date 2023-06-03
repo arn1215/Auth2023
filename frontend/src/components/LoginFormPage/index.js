@@ -1,5 +1,5 @@
 // frontend/src/components/LoginFormPage/index.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -16,7 +16,7 @@ function LoginFormPage() {
   const [errors, setErrors] = useState([]);
 
   if (sessionUser) return (
-    <Redirect to="/" />
+    <Redirect to="/rooms/1" />
   );
 
   const handleSubmit = (e) => {
@@ -25,9 +25,11 @@ function LoginFormPage() {
     return dispatch(sessionActions.login({ credential, password }))
       .catch(async (res) => {
         const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);   
+        if (data && data.errors) setErrors(data.errors);
       });
   }
+
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -35,12 +37,12 @@ function LoginFormPage() {
         {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
       <label>
-        Username or Email
+        Username
         <input
           type="text"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
-          
+
         />
       </label>
       <label>
@@ -49,7 +51,7 @@ function LoginFormPage() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          
+
         />
       </label>
       <button type="submit">Log In</button>
