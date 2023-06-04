@@ -4,7 +4,7 @@
     "sequelize-cli": "sequelize-cli",
     "start": "per-env",
     "start:development": "nodemon ./app",
-    "start:production": "node ./bin/www",
+    "start:production": "node ./app",
     "build": "node psql-setup-script.js"
   },
   "dependencies": {
