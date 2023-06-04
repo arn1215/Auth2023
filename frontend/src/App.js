@@ -69,7 +69,7 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
 
-    const ws = new WebSocket('ws://localhost:10000')
+    const ws = new WebSocket('wss://chatify-92lw.onrender.com')
 
     ws.onopen = (e) => {
       console.log('connection open', `${e}`)
