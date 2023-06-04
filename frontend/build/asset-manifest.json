@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.dde6fa58.css",
-    "main.js": "/static/js/main.529ff678.js",
+    "main.js": "/static/js/main.c2cbeabc.js",
     "static/media/fa-solid-900.ttf": "/static/media/fa-solid-900.4a2cd718d7031b732e76.ttf",
     "static/media/vecteezy_abstract-blue-background-simple-design-for-your-website_6852804.jpg": "/static/media/vecteezy_abstract-blue-background-simple-design-for-your-website_6852804.5484f442f7671f4db161.jpg",
     "static/media/fa-brands-400.ttf": "/static/media/fa-brands-400.150de8eaa454d669c405.ttf",
@@ -13,10 +13,10 @@
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.68577e40f3e70067b5da.woff2",
     "index.html": "/index.html",
     "main.dde6fa58.css.map": "/static/css/main.dde6fa58.css.map",
-    "main.529ff678.js.map": "/static/js/main.529ff678.js.map"
+    "main.c2cbeabc.js.map": "/static/js/main.c2cbeabc.js.map"
   },
   "entrypoints": [
     "static/css/main.dde6fa58.css",
-    "static/js/main.529ff678.js"
+    "static/js/main.c2cbeabc.js"
   ]
 }
