@@ -3,7 +3,7 @@
 
 // Import environment variables
 require('dotenv').config();
-
+const WebSocket = require('ws')
 const { port } = require('../config');
 
 const app = require('../app');
