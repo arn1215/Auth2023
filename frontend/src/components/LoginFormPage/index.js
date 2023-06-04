@@ -34,13 +34,17 @@ function LoginFormPage() {
 
   if (signup) {
     return (
+      <>
+        <SignupFormPage />
+        <button className='form-element fade-in' style={{ border: 'none', background: 'none' }} onClick={() => setSignup(false)}>back to login</button>
+      </>
 
-      <SignupFormPage />
 
     );
   } else {
     return (
-      <div className='form'>
+      <div className='form fade-in'>
+        <h2 className='login-text'>Log in</h2>
         <ul>
           {errors?.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>

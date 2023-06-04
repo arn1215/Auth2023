@@ -22,7 +22,6 @@ function OauthLogin() {
       <img className='splash-uwu' src={image} alt="uwu" />
       <img className='splash-uwu-2' src={image2} alt="uwu" />
       {/* <img className='splash-uwu-3' src={image3} alt="uwu" /> */}
-      <h2 className='login-text'>Log in</h2>
       <LoginFormPage />
       {/* <button
         data-tooltip-id="google"

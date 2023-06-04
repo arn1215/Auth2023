@@ -21,7 +21,7 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      
+
       return await dispatch(sessionActions.signup({ username, password }))
         .catch(async (res) => {
           const data = await res.json();
@@ -32,8 +32,8 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="form">
-
+    <div className="form fade-in">
+      <h2 className='login-text'>Sign Up</h2>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
