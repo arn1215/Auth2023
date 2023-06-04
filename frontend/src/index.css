@@ -122,7 +122,9 @@ body {
 .login-form {
     background: rgba(245, 245, 245, 0.158);
     width: 20%;
+    min-width: 270px;
     height: 60vh;
+    min-height: 600px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
