@@ -126,7 +126,6 @@ function App() {
       </Route>
       <Route path="/rooms/:roomId(\d+)">
         <ChatRoom messages={messages} handleSendMessage={handleSendMessage} handleLeave={handleLeave} handleJoin={handleJoin} />
-        <LogoutButton />
       </Route>
       <Route path="/login">
         <LoginFormPage />

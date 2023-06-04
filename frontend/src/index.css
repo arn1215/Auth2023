@@ -15,7 +15,13 @@ body {
 }
 
 
-
+.nav-container {
+    background-color: rgb(28, 28, 28);
+    position: absolute;
+    width: 60px;
+    height: 100%;
+   
+}
 
 
 .splash-text-h1 {

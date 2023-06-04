@@ -16,6 +16,8 @@ import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import LogoutButton from "../../components/LogoutButton";
+import Nav from "../../components/Nav";
 
 
 
@@ -104,9 +106,11 @@ function ChatRoom({ messages, handleSendMessage, handleLeave, handleJoin }) {
     }, [messages]);
 
     return (
-        <div>
-            <div className="page-container">
+        <div style={{display: 'flex'}}>
+      
+            <Nav />
 
+            <div className="page-container">
                 <div className="messages-container">
                     <div>
                         {messages?.map(m => (
