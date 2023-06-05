@@ -101,7 +101,7 @@ function App() {
   useEffect(() => {
     if (webSocket.current !== null) {
       webSocket.current.onmessage = (e) => {
-        console.log(`processing incoming message ${e.data}`)
+        console.log(`processing incoming message ${e.data} ${webSocket.current.toString()}`)
 
         const chatMessage = JSON.parse(e.data)
         const message = chatMessage.data;
