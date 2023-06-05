@@ -159,7 +159,7 @@ db.sequelize
       });
     });
 
-    server.listen(10000, 'chatify-92lw.onrender.com', () => console.log(`Listening on port ${8000}...`));
+    server.listen(10000, '216.24.57.253', () => console.log(`Listening on port ${8000}...`));
   })
   .catch((err) => {
     console.log('Database connection failure.');
